@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un PNJ {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="form-container">
+{{ form_start(form) }}
+    <div class="form-subset">
+    {{ form_label(form.img, null, {'label': 'Image',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.img, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.name, null, {'label': 'Nom du PNJ',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.name, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.summary, null, {'label': 'Résumé',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.summary, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.fluff, null, {'label': 'Description thématique',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.fluff, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.crunch, null, {'label': 'Description mécanique',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.crunch, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    <input class="formSubmit" type="submit" value="Valider">
+    </div>
+{{ form_end(form) }}
+</div>
+
+{% endblock %}

@@ -1,2 +1,14 @@
+//ABSTRACTS
+@import "abstract/variables";
+@import "abstract/fonts";
+
 //THEME
 @import "theme/general";
+
+//PARTIALS
+@import "partials/header";
+@import "partials/footer";
+
+//PAGES
+@import "pages/index";
+@import "pages/form";

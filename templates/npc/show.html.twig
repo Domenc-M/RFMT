@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Npc{% endblock %}
+
+{% block body %}
+    <h1>Npc</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ npc.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ npc.name }}</td>
+            </tr>
+            <tr>
+                <th>Summary</th>
+                <td>{{ npc.summary }}</td>
+            </tr>
+            <tr>
+                <th>Fluff</th>
+                <td>{{ npc.fluff }}</td>
+            </tr>
+            <tr>
+                <th>Crunch</th>
+                <td>{{ npc.crunch }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ npc.createdAt ? npc.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ npc.updatedAt ? npc.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('npc_index') }}">back to list</a>
+
+    <a href="{{ path('npc_edit', {'id': npc.id}) }}">edit</a>
+
+    {{ include('npc/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,53 @@
+#main-footer {
+    position:relative;
+
+    .footer-container {
+        background-color: $dark;
+        line-height:8rem;
+        position:relative;
+        z-index:10;
+        margin-top:-1rem;
+        margin-bottom:5rem;
+
+        .footer-list {
+            display:flex;
+            justify-content:space-evenly;
+        }
+    }
+
+}
+
+.floating-title{
+    margin: 5rem 0rem;
+    
+    .footer-title {
+        font-family:"Fantasya";
+        text-align:center;
+        font-size:60px;
+        text-shadow: $white 0px 0 25px;
+        z-index:-5;
+        margin-bottom:1rem;
+    }
+    
+    h2 {
+        font-family:"Fantasya";
+        text-align:center;
+        font-size:20px;
+        text-shadow: $white 0px 0 25px;
+        z-index:-5;
+    }
+}
+
+@media screen and (min-width:$lg) {
+#main-footer {
+
+    .footer-title {
+        font-size:60px;
+    }
+    
+    h2 {
+        font-size:20px;
+    }
+}
+
+}

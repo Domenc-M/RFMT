@@ -1,0 +1,70 @@
+.quick-search {
+    display:flex;
+    justify-content:center;
+    margin-bottom:5rem;
+
+    .quick-search-input {
+    line-height:2rem;
+    font-size:2rem;
+    }
+}
+
+#index-new-list {
+    display:flex;
+    flex-direction:column;
+    gap:2rem;
+
+    .index-new-sublist{
+        display:flex;
+        flex-wrap:wrap;
+        gap:1rem;
+        justify-content:space-evenly;
+
+        .index-new-title-container{
+            width:100%;
+        }
+
+        h3 {
+            font-family: "MoonFirefly";
+            font-size:1rem;
+            text-align:center;
+        }
+
+        .index-new-underline{
+            height:1px;
+            width:60%;
+            background-color:$white;
+            margin:1rem auto;
+        }
+
+        .card-container {
+            width:40%;
+            border-radius:6px;
+            overflow:hidden;
+            box-shadow: 5px 5px 5px 1px $dark;
+
+
+            img {
+                width:100%;
+                height:100%;
+                object-fit:cover;
+            }
+        }
+
+    }
+}
+
+@media screen and (min-width:$lg) {
+    .quick-search-input {
+        line-height:1rem !important;
+        font-size:1rem !important;
+    }
+
+    #index-new-list {
+        flex-direction:row;
+
+        .index-new-sublist{
+            gap:0.75rem;
+        }
+    }
+}

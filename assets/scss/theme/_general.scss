@@ -1,3 +1,35 @@
 body {
     margin:0;
+    background-image:url("../../img/background.png");
+    color:$white;
+}
+
+#main-page-container {
+    width:100%;
+    margin:auto;
+    position:relative;
+}
+
+main {
+    position:relative;
+    margin-top:-6rem;
+    background-color:$primary-green;
+    z-index:0;
+    padding-bottom:23rem;
+}
+
+.svg-bot {
+    filter: invert(10%) sepia(5%) saturate(625%) hue-rotate(181deg) brightness(96%) contrast(91%);
+    width:100%;
+    position:absolute;
+    bottom:0px;
+    margin-bottom:8rem;
+    z-index:0;
+}
+
+@media screen and (min-width:$lg) {
+
+    main{
+        padding-bottom:43rem;
+    }
 }
