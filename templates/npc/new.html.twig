@@ -3,20 +3,25 @@
 {% block title %}Ajouter un PNJ {{ parent() }}{% endblock %}
 
 {% block body %}
-<div class="form-container">
 {{ form_start(form) }}
-    <div class="form-subset">
-    {{ form_label(form.img, null, {'label': 'Image',
-        'label_attr': {'class': 'formLabel'}
-    }) }}
-    {{ form_widget(form.img, {'attr': {'class': 'formText'}}) }}
-    </div>
+
+
+<div class="form-container">
+
+<h2 class="form-title">Ajouter un PNJ</h2>
 
     <div class="form-subset">
     {{ form_label(form.name, null, {'label': 'Nom du PNJ',
         'label_attr': {'class': 'formLabel'}
     }) }}
     {{ form_widget(form.name, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.img, null, {'label': 'Image',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.img, {'attr': {'class': 'formText'}}) }}
     </div>
 
     <div class="form-subset">
@@ -41,9 +46,9 @@
     </div>
 
     <div class="form-subset">
-    <input class="formSubmit" type="submit" value="Valider">
+        <input class="blue-button formSubmit" type="submit" value="Valider">
     </div>
-{{ form_end(form) }}
-</div>
 
+</div>
+{{ form_end(form) }}
 {% endblock %}

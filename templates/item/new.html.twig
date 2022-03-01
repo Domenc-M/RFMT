@@ -1,11 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Item{% endblock %}
+{% block title %}Ajouter un objet {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Create new Item</h1>
+{{ form_start(form) }}
 
-    {{ include('item/_form.html.twig') }}
 
-    <a href="{{ path('item_index') }}">back to list</a>
+<div class="form-container">
+
+<h2 class="form-title">Ajouter un objet</h2>
+
+    <div class="form-subset">
+    {{ form_label(form.name, null, {'label': 'Nom de l\'objet',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.name, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.img, null, {'label': 'Image',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.img, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.summary, null, {'label': 'Résumé',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.summary, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.fluff, null, {'label': 'Description thématique',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.fluff, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.crunch, null, {'label': 'Description mécanique',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.crunch, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+        <input class="blue-button formSubmit" type="submit" value="Valider">
+    </div>
+
+</div>
+{{ form_end(form) }}
 {% endblock %}

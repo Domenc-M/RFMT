@@ -17,7 +17,15 @@
             </li>
         </ul>
     </nav>
-    <h1>Roll&nbsp;For&nbsp;Many&nbsp;Things</h1>
-    <h2 class="changing-title"></h2>
+
+    <div class="header-title-flex">
+        <a href="{{ path("app_index") }}">
+            <h1>Roll&nbsp;For&nbsp;Many&nbsp;Things</h1>
+        </a>
+        <a href="{{ path("app_index") }}">
+            <h2 class="changing-title"></h2>
+        </a>
+    </div>
+    
     <img class="svg-top" src="{{ asset('build/img/transition.svg') }}" />
 </header>

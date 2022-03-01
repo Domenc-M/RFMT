@@ -1,0 +1,42 @@
+.form-container {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1.5rem;
+    margin-bottom:2rem;
+
+    .form-title{
+        font-size:1.25rem;
+        font-family:"MoonFirefly";
+    }
+
+    .form-subset {
+        display:flex;
+        flex-direction:column;
+        gap:0.25rem;
+        width:50vw;
+
+        textarea {
+            resize:vertical;
+            min-height:5rem;
+        }
+
+        .formText {
+            background-color: $dark;
+            color:$white;
+            border:none;
+            font-family:Helvetica;
+        }
+    }
+
+    .formSubmit{
+        align-self:center;
+    }
+}
+
+@media screen and (min-width:$lg) {
+
+.form-subset {
+    width:25vw;
+}
+}
