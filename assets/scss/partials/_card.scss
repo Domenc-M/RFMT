@@ -1,0 +1,52 @@
+.cardContainer {
+    position:relative;
+    background-image:url("../../img/cardBG.png");
+    height:375px;
+    width:250px;
+    overflow:hidden;
+    border-radius:15px;
+    box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.5);
+    background-size:cover;
+
+    .cardImgContainer{
+        position:absolute;
+        top:0;
+        height:65%;
+        width:100%;
+
+        img{
+            height:100%;
+            width:100%;
+            object-fit:cover;
+        }
+    }
+
+    .card-front{
+        position:absolute;
+        z-index:10;
+
+        img{
+            height:100%;
+            width:100%;
+            object-fit:cover;
+        }
+
+        h3{
+            position:absolute;
+            top:65%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            font-size:15px;
+            font-family:"MoonFirefly";
+            width:220px;
+            text-align:center;
+        }
+
+        p{
+            position:absolute;
+            top:70%;
+            left:5%;
+            width:220px;
+        }
+    }
+}

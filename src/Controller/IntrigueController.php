@@ -7,9 +7,12 @@ use App\Form\IntrigueType;
 use App\Repository\IntrigueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/intrigue")
@@ -17,29 +20,43 @@ use Symfony\Component\Routing\Annotation\Route;
 class IntrigueController extends AbstractController
 {
     /**
-     * @Route("/", name="intrigue_index", methods={"GET"})
-     */
-    public function index(IntrigueRepository $intrigueRepository): Response
-    {
-        return $this->render('intrigue/index.html.twig', [
-            'intrigues' => $intrigueRepository->findAll(),
-        ]);
-    }
-
-    /**
      * @Route("/new", name="intrigue_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager,
+                        SluggerInterface $slugger, Security $security): Response
     {
         $intrigue = new Intrigue();
         $form = $this->createForm(IntrigueType::class, $intrigue);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $img = $form->get('img')->getData();
+            if(!$img)
+            {
+                $intrigue->setImg("basic.png");
+            }
+            else
+            {
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                //Slug to make file name safe
+                $safeFilename = $slugger->slug($originalFilename);
+                //Uniqid to prevent twice the same name in DB, so they dont replace each other.
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+
+                try {
+                    $img->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // TODO
+                }
+                $intrigue->setImg($newFilename);
+            }
+            $intrigue->setCreator($security->getUser());
             $entityManager->persist($intrigue);
             $entityManager->flush();
-
-            return $this->redirectToRoute('intrigue_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_searchOwn', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('intrigue/new.html.twig', [

@@ -151,6 +151,7 @@ class Intrigue
 
     /**
      * @ORM\PreUpdate
+     * @ORM\PrePersist
      */
     public function setUpdatedAtValue(): void
     {

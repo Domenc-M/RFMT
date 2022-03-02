@@ -5,7 +5,7 @@
 {% block body %}
 
 
-<form class="quick-search" action="">
+<form class="quick-search" action="{{ path("app_searchOwn") }}" method="get">
     <input class="quick-search-input" type="text" placeholder="Recherche rapide">
     <input class="search-button" type="submit" value="Go !">
 </form>

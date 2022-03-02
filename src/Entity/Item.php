@@ -134,6 +134,7 @@ class Item
 
     /**
      * @ORM\PreUpdate
+     * @ORM\PrePersist
      */
     public function setUpdatedAtValue(): void
     {

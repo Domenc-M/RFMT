@@ -133,6 +133,7 @@ class Hook
 
     /**
      * @ORM\PreUpdate
+     * @ORM\PrePersist
      */
     public function setUpdatedAtValue(): void
     {

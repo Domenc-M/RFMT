@@ -7,9 +7,12 @@ use App\Form\ItemType;
 use App\Repository\ItemRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/item")
@@ -17,29 +20,43 @@ use Symfony\Component\Routing\Annotation\Route;
 class ItemController extends AbstractController
 {
     /**
-     * @Route("/", name="item_index", methods={"GET"})
-     */
-    public function index(ItemRepository $itemRepository): Response
-    {
-        return $this->render('item/index.html.twig', [
-            'items' => $itemRepository->findAll(),
-        ]);
-    }
-
-    /**
      * @Route("/new", name="item_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, 
+                        Security $security, SluggerInterface $slugger): Response
     {
         $item = new Item();
         $form = $this->createForm(ItemType::class, $item);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $img = $form->get('img')->getData();
+            if(!$img)
+            {
+                $item->setImg("basic.png");
+            }
+            else
+            {
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                //Slug to make file name safe
+                $safeFilename = $slugger->slug($originalFilename);
+                //Uniqid to prevent twice the same name in DB, so they dont replace each other.
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+
+                try {
+                    $img->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // TODO
+                }
+                $item->setImg($newFilename);
+            }
+            $item->setCreator($security->getUser());
             $entityManager->persist($item);
             $entityManager->flush();
-
-            return $this->redirectToRoute('item_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_searchOwn', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('item/new.html.twig', [

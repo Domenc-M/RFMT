@@ -2,6 +2,7 @@ body {
     margin:0;
     background-image:url("../../img/background.png");
     color:$white;
+    font-family:Helvetica, sans-serif
 }
 
 #main-page-container {
@@ -47,6 +48,6 @@ main {
 @media screen and (min-width:$lg) {
 
     main{
-        padding-bottom:43rem;
+        padding-bottom:48rem;
     }
 }

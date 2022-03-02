@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rechercher {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h2 class="list-header">Mes notes</h2>
+
+    <section class="list-button-flex">
+        <a href="{{ path('npc_new') }}" class="blue-button">Nouveau PNJ</a>
+        <a href="{{ path('location_new') }}" class="blue-button">Nouveau lieu</a>
+        <a href="{{ path('item_new') }}" class="blue-button">Nouvel objet</a>
+        <a href="{{ path('encounter_new') }}" class="blue-button">Nouvelle rencontre</a>
+        <a href="{{ path('intrigue_new') }}" class="blue-button">Nouvelle intrigue</a>
+    </section>
+
+<section class="list-container">
+
+        {% for item in items %}
+        <div>
+            {{ include('_card.html.twig', {item: item}, with_context = false) }}
+            <div class="button-container">
+                <a class="blue-button" href="{{ path('item_show', {'id': item.id}) }}">show</a>
+                <a class="blue-button" href="{{ path('item_edit', {'id': item.id}) }}">edit</a>
+            </div>
+        </div>
+        
+        {% else %}
+            <h2>Aucun résultat trouvé, désolé !</h2>
+        {% endfor %}
+</section>
+
+
+{% endblock %}
