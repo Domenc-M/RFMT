@@ -119,7 +119,7 @@ class EncounterController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('encounter_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_searchOwn', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('encounter/edit.html.twig', [
@@ -142,6 +142,6 @@ class EncounterController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('encounter_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_searchOwn', [], Response::HTTP_SEE_OTHER);
     }
 }

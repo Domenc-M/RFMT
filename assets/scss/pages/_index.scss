@@ -1,14 +1,14 @@
 .quick-search {
     display:flex;
     justify-content:center;
-    margin-bottom:5rem;
+    margin:5rem;
 
     .quick-search-input {
-    line-height:2rem;
-    font-size:2rem;
-    border:none;
+        line-height:2rem;
+        font-size:2rem;
+        border:none;
     }
-
+    
     .search-button {
         background-color: $cyan;
         border-radius:0px 5px 5px 0px;

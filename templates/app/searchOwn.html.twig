@@ -13,21 +13,76 @@
         <a href="{{ path('intrigue_new') }}" class="blue-button">Nouvelle intrigue</a>
     </section>
 
+<div class="list-main-flex">
+
+<section class="search-sidebar">
+    <form action="">
+
+        <div class="search-container">
+            <input class="search-input" type="text" name="searchKey" placeholder="Recherche">
+            <input class="search-button" type="submit" value="Go !">
+        </div>
+
+        <div class="radio-container">
+            <span>Rechercher dans :</span>
+
+            <div class="sidebar-subset">
+                <input type="radio" id="filter1" name="filter" value="title" checked>
+                <label for="filter1">Titre</label>
+            </div>
+
+            <div>
+                <input type="radio" id="filter2" name="filter" value="summary">
+                <label for="filter2">Résumé</label>
+            </div>
+        </div>
+
+        <div class="checkbox-container">
+
+        <span>Catégories :</span>
+
+        <div class="sidebar-subset">
+            <input type="checkbox" id="npc" name="npc">
+            <label for="npc">PNJs</label>
+        </div>
+
+        <div class="sidebar-subset">
+            <input type="checkbox" id="location" name="location">
+            <label for="location">Lieux</label>
+        </div>
+
+        <div class="sidebar-subset">
+            <input type="checkbox" id="encounter" name="encounter">
+            <label for="encounter">Rencontres</label>
+        </div>
+
+        <div class="sidebar-subset">
+            <input type="checkbox" id="item" name="item">
+            <label for="item">Objets</label>
+        </div>
+        
+        <div class="sidebar-subset">
+            <input type="checkbox" id="intrigue" name="intrigue">
+            <label for="intrigue">Intrigue</label>
+        </div>
+
+
+        </div>
+
+    </form>
+</section>
+
 <section class="list-container">
 
         {% for item in items %}
-        <div>
+
             {{ include('_card.html.twig', {item: item}, with_context = false) }}
-            <div class="button-container">
-                <a class="blue-button" href="{{ path(item.getPath ~ '_show', {'id': item.id}) }}">show</a>
-                <a class="blue-button" href="{{ path(item.getPath ~ '_edit', {'id': item.id}) }}">edit</a>
-            </div>
-        </div>
         
         {% else %}
             <h2>Aucun résultat trouvé, désolé !</h2>
         {% endfor %}
 </section>
 
+</div>
 
 {% endblock %}

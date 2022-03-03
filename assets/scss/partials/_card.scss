@@ -7,6 +7,11 @@
     border-radius:15px;
     box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.5);
     background-size:cover;
+    transition:all 0.2s;
+
+    &:hover {
+        box-shadow: $white 0px 0 10px;
+    }
 
     .cardImgContainer{
         position:absolute;

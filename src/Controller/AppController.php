@@ -32,33 +32,60 @@ class AppController extends AbstractController
     /**
      * @Route("/searchown", name="app_searchOwn")
      */
-    public function searchOwn(ManagerRegistry $doctrine): Response
+    public function searchOwn(Request $request, ManagerRegistry $doctrine): Response
     {
         
+        dump($request);
+
+        dump($request->query->get('npc'));
+
+        $searchAll = false;
+
+        if($request->query->get('npc') == null && 
+           $request->query->get('location') == null &&
+           $request->query->get('encounter') == null &&
+           $request->query->get('item') == null &&
+           $request->query->get('intrigue') == null)
+           {
+               $searchAll = true;
+           }
+
         $result = [];
 
         //NPC
-        $npcRepo = $doctrine->getRepository(Npc::class);
-        $result = array_merge($result, $npcRepo->findAll());
+        if($request->query->get('npc') == "on" || $searchAll == true) {
+            $npcRepo = $doctrine->getRepository(Npc::class);
+            $npc = $npcRepo->findAll();
+        } else { $npc = false; }
 
         //LOCATION
-        $locationRepo = $doctrine->getRepository(Location::class);
-        $result = array_merge($result, $locationRepo->findAll());
+        if($request->query->get('npc') == "on" || $searchAll == true)
+        {
+            $locationRepo = $doctrine->getRepository(Location::class);
+            $location = $locationRepo->findAll();
+        } else { $location = false; }
 
         //ITEM
-        $itemRepo = $doctrine->getRepository(Item::class);
-        $result = array_merge($result, $itemRepo->findAll());
-
-        //INTRIGUE
-        $intrigueRepo = $doctrine->getRepository(Intrigue::class);
-        $result = array_merge($result, $intrigueRepo->findAll());
+        if($request->query->get('npc') == "on" || $searchAll == true)
+        {
+            $itemRepo = $doctrine->getRepository(Item::class);
+            $item = $itemRepo->findAll();
+        } else { $item = false; }
 
         //ENCOUNTER
-        $encounterRepo = $doctrine->getRepository(Encounter::class);
-        $result = array_merge($result, $encounterRepo->findAll());
+        if($request->query->get('npc') == "on" || $searchAll == true)
+        {
+            $encounterRepo = $doctrine->getRepository(Encounter::class);
+            $encounter = $encounterRepo->findAll();
+        } else { $encounter = false; }
 
-        // dump($result);
-        // die;
+        //ENCOUNTER
+        if($request->query->get('npc') == "on" || $searchAll == true)
+        {
+            $intrigueRepo = $doctrine->getRepository(Intrigue::class);
+            $intrigue = $intrigueRepo->findAll();
+        } else { $intrigue = false; }
+
         return $this->render('app/searchOwn.html.twig', [
             'items' => $result,
         ]);
