@@ -30,7 +30,7 @@ class IntrigueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $img = $form->get('img')->getData();
+            $img = $form->get('imgFile')->getData();
             if(!$img)
             {
                 $intrigue->setImg("basic.png");
@@ -78,15 +78,48 @@ class IntrigueController extends AbstractController
     /**
      * @Route("/{id}/edit", name="intrigue_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Intrigue $intrigue, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Intrigue $intrigue, EntityManagerInterface $entityManager,
+                        SluggerInterface $slugger): Response
     {
         $form = $this->createForm(IntrigueType::class, $intrigue);
+        $oldImg = $intrigue->getImg();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $img = $form->get('imgFile')->getData();
+
+            if(!$img || $img->getClientOriginalName() == $oldImg)
+            {
+                $intrigue->setImg($oldImg);
+            }
+            else
+            {
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                //Slug to make file name safe
+                $safeFilename = $slugger->slug($originalFilename);
+                //Uniqid to prevent twice the same name in DB, so they dont replace each other.
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+                try {
+                    $img->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // TODO
+                }
+
+                if($oldImg != "basic.png")
+                {
+                    unlink($this->getParameter('img_directory')."/".$oldImg);
+                }
+
+                $intrigue->setImg($newFilename);
+            }
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('intrigue_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_searchOwn', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('intrigue/edit.html.twig', [
@@ -101,10 +134,14 @@ class IntrigueController extends AbstractController
     public function delete(Request $request, Intrigue $intrigue, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$intrigue->getId(), $request->request->get('_token'))) {
+            if($intrigue->getImg() != "basic.png")
+            {
+                unlink($this->getParameter('img_directory')."/".$intrigue->getImg());
+            }
             $entityManager->remove($intrigue);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('intrigue_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_searchOwn', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -176,4 +176,14 @@ class Item
 
         return $this;
     }
+
+    public function getPath(): string
+    {
+        return("item");
+    }
+
+    public function getTypeName(): string
+    {
+        return("Objet");
+    }
 }

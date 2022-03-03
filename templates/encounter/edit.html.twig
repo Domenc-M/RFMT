@@ -1,13 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Encounter{% endblock %}
+{% block title %}Ajouter une rencontre {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Edit Encounter</h1>
+{{ form_start(form) }}
 
-    {{ include('encounter/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('encounter_index') }}">back to list</a>
+<div class="form-container">
 
-    {{ include('encounter/_delete_form.html.twig') }}
+<h2 class="form-title">Ajouter une rencontre</h2>
+
+    <div class="form-subset">
+    {{ form_label(form.name, null, {'label': 'Nom de la rencontre',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.name, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.imgFile, null, {'label': 'Image',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.imgFile, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.summary, null, {'label': 'Résumé',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.summary, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.fluff, null, {'label': 'Description thématique',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.fluff, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.crunch, null, {'label': 'Description mécanique',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.crunch, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.rewards, null, {'label': 'Récompenses de la rencontre',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.rewards, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+        <input class="blue-button formSubmit" type="submit" value="Valider">
+    </div>
+
+</div>
+{{ form_end(form) }}
 {% endblock %}

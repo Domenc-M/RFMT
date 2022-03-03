@@ -19,7 +19,7 @@ class ItemType extends AbstractType
 Par exemple : \"Dainslef est une épée maudite. Pendant des générations les épéistes se la sont arrachés avant de mourrir horriblement. Aujourd'hui, l'épée a été enfermée au fond d'une forteresse peuplé de chevaliers qui ont juré de ne laisser personne déchaîner Dainslef de nouveau.\""]])
         ->add('crunch', null, ['attr' => ['placeholder' => "La description du rôle du PNJ dans le jeu. Vous pouvez aussi y inclure un bloc statistique. 
 Par exemple : \"Dainslef est une épée à deux mains qui inflige 1d12 de dégât, tant que le joueur n'as pas infligé 12 points de dégât, il ne peut pas la rengainer. Chaque tour où elle est degainé, il doit attaquer au moins une personne, sans cible à portée, il doit s'attaquer lui même. Un immortel tué par Dainslef ne ressucite pas. \""]])
-            ->add('img', FileType::class)
+        ->add('imgFile', FileType::class, ['required' => false, 'data_class' => null, 'mapped' => false])
         ;
     }
 

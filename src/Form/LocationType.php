@@ -19,7 +19,7 @@ class LocationType extends AbstractType
 Par exemple : \"Arghuta est un ancien village de pêcheur, qui depuis l'infestation de l'océan doit survivre face à de monstrueuses créatures\""]])
         ->add('crunch', null, ['attr' => ['placeholder' => "La description du rôle du lieu dans le jeu. Vous pouvez aussi y inclure un bloc statistique. 
 Par exemple : \"Arghuta est un village proche de la source de l'infestation, les joueurs pourrons se ravitailler et obtenir des informations avant d'attaquer le donjon sous-marin. \""]])
-            ->add('img', FileType::class)
+        ->add('imgFile', FileType::class, ['required' => false, 'data_class' => null, 'mapped' => false])
         ;
     }
 

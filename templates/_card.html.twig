@@ -4,8 +4,9 @@
     </div>
 
     <div class="card-front">
+        <h3 class="card-type">{{ item.getTypeName() }}</h3>
         <img src={{ asset('build/img/cardFront.png') }} alt="">
-        <h3>{{ item.name }}</h3>
+        <h3 class="card-name">{{ item.name }}</h3>
         <p>{{ item.summary }}</p>
     </div>
 </article>

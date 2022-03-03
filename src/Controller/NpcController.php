@@ -30,7 +30,7 @@ class NpcController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $img = $form->get('img')->getData();
+            $img = $form->get('imgFile')->getData();
             if(!$img)
             {
                 $npc->setImg("basic.png");
@@ -79,19 +79,52 @@ class NpcController extends AbstractController
     /**
      * @Route("/{id}/edit", name="npc_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Npc $npc, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Npc $npc, EntityManagerInterface $entityManager,
+                        SluggerInterface $slugger ): Response
     {
         $form = $this->createForm(NpcType::class, $npc);
+        $oldImg = $npc->getImg();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $img = $form->get('imgFile')->getData();
+
+            if(!$img || $img->getClientOriginalName() == $oldImg)
+            {
+                $npc->setImg($oldImg);
+            }
+            else
+            {
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                //Slug to make file name safe
+                $safeFilename = $slugger->slug($originalFilename);
+                //Uniqid to prevent twice the same name in DB, so they dont replace each other.
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+                try {
+                    $img->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // TODO
+                }
+
+                if($oldImg != "basic.png")
+                {
+                    unlink($this->getParameter('img_directory')."/".$oldImg);
+                }
+
+                $npc->setImg($newFilename);
+            }
+
             $entityManager->flush();
 
-            return $this->redirectToRoute('npc_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_searchOwn', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('npc/edit.html.twig', [
-            'npc' => $npc,
+         return $this->renderform('npc/edit.html.twig', [
+             'npc' => $npc,
             'form' => $form,
         ]);
     }
@@ -102,10 +135,15 @@ class NpcController extends AbstractController
     public function delete(Request $request, Npc $npc, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$npc->getId(), $request->request->get('_token'))) {
+            if($npc->getImg() != "basic.png")
+            {
+                unlink($this->getParameter('img_directory')."/".$npc->getImg());
+            }
+            
             $entityManager->remove($npc);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('npc_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_searchOwn', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -30,7 +30,7 @@ class EncounterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $img = $form->get('img')->getData();
+            $img = $form->get('imgFile')->getData();
             if(!$img)
             {
                 $encounter->setImg("basic.png");
@@ -78,12 +78,45 @@ class EncounterController extends AbstractController
     /**
      * @Route("/{id}/edit", name="encounter_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Encounter $encounter, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Encounter $encounter, EntityManagerInterface $entityManager,
+                        SluggerInterface $slugger): Response
     {
         $form = $this->createForm(EncounterType::class, $encounter);
+        $oldImg = $encounter->getImg();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $img = $form->get('imgFile')->getData();
+
+            if(!$img || $img->getClientOriginalName() == $oldImg)
+            {
+                $encounter->setImg($oldImg);
+            }
+            else
+            {
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                //Slug to make file name safe
+                $safeFilename = $slugger->slug($originalFilename);
+                //Uniqid to prevent twice the same name in DB, so they dont replace each other.
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+                try {
+                    $img->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // TODO
+                }
+
+                if($oldImg != "basic.png")
+                {
+                    unlink($this->getParameter('img_directory')."/".$oldImg);
+                }
+
+                $encounter->setImg($newFilename);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('encounter_index', [], Response::HTTP_SEE_OTHER);
@@ -101,6 +134,10 @@ class EncounterController extends AbstractController
     public function delete(Request $request, Encounter $encounter, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$encounter->getId(), $request->request->get('_token'))) {
+            if($encounter->getImg() != "basic.png")
+            {
+                unlink($this->getParameter('img_directory')."/".$encounter->getImg());
+            }
             $entityManager->remove($encounter);
             $entityManager->flush();
         }

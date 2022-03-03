@@ -176,4 +176,14 @@ class Location
 
         return $this;
     }
+
+    public function getPath(): string
+    {
+        return("location");
+    }
+
+    public function getTypeName(): string
+    {
+        return("Lieu");
+    }
 }

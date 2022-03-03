@@ -193,4 +193,14 @@ class Intrigue
 
         return $this;
     }
+
+    public function getPath(): string
+    {
+        return("intrigue");
+    }
+
+    public function getTypeName(): string
+    {
+        return("Intrigue");
+    }
 }

@@ -193,4 +193,14 @@ class Encounter
 
         return $this;
     }
+
+    public function getPath(): string
+    {
+        return("encounter");
+    }
+
+    public function getTypeName(): string
+    {
+        return("Rencontre");
+    }
 }

@@ -176,4 +176,14 @@ class Npc
 
         return $this;
     }
+
+    public function getPath(): string
+    {
+        return("npc");
+    }
+
+    public function getTypeName(): string
+    {
+        return("PNJ");
+    }
 }
