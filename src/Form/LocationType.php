@@ -14,7 +14,7 @@ class LocationType extends AbstractType
     {
         $builder
         ->add('name', null, ['attr' => ['placeholder' => "Le nom du lieu"]])
-        ->add('summary', null, ['attr' => ['placeholder' => "Le résumé du lieu, qui apparaît sur la carte"]])
+        ->add('summary', null, ['attr' => ['placeholder' => "Le résumé de la table, qui apparaît sur la carte"]])
         ->add('fluff', null, ['attr' => ['placeholder' => "La description diégétique du lieu, ce qu'il représente dans l'histoire, le monde. 
 Par exemple : \"Arghuta est un ancien village de pêcheur, qui depuis l'infestation de l'océan doit survivre face à de monstrueuses créatures\""]])
         ->add('crunch', null, ['attr' => ['placeholder' => "La description du rôle du lieu dans le jeu. Vous pouvez aussi y inclure un bloc statistique. 

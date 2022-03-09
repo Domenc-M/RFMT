@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une amorce {{ parent() }}{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+
+
+<div class="form-container">
+
+<h2 class="form-title">Ajouter une amorce</h2>
+
+    <div class="form-subset">
+    {{ form_label(form.name, null, {'label': 'Nom de l\'amorce',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.name, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.imgFile, null, {'label': 'Image',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.imgFile, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.summary, null, {'label': 'Résumé',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.summary, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.description, null, {'label': 'Description',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.description, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.subHook, null, {'label': 'Amorces secondaires',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.subHook, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+        <input class="blue-button formSubmit" type="submit" value="Valider">
+    </div>
+
+</div>
+{{ form_end(form) }}
+{% endblock %}

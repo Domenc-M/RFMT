@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ hook.name }} - {{ parent()}}{% endblock %}
+
+{% block body %}
+<h2 class="show-title">{{ hook.name }}</h2>
+
+<div class="show-main-flex">
+
+    {{ include('_cardShow.html.twig', {item: hook}, with_context = false) }}
+
+    <div class="show-sub-flex">
+        <h3 class="show-subset-title">Description :</h3>
+        <p>{{ hook.description }}</p>
+
+        <h3 class="show-subset-title">Amorces secondaires :</h3>
+        <p class="show-style">{{ hook.subHook }}</p>
+    </div>
+</div>
+
+
+<div class="show-button-flex">
+    <a class="blue-button" href="{{ path('app_searchOther') }}">Retour à la recherche</a>
+
+    <a class="blue-button" href="{{ path('hook_edit', {'id': hook.id}) }}">Modifier</a>
+
+    {{ include('hook/_delete_form.html.twig') }}
+</div>
+
+{% endblock %}

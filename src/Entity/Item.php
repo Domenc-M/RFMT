@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ItemRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +60,34 @@ class Item
      * @ORM\Column(type="string", length=255)
      */
     private $img;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Npc::class, mappedBy="Item")
+     */
+    private $npcs;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Location::class, mappedBy="Item")
+     */
+    private $locations;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Intrigue::class, inversedBy="items")
+     */
+    private $Intrigue;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Encounter::class, inversedBy="items")
+     */
+    private $Encounter;
+
+    public function __construct()
+    {
+        $this->npcs = new ArrayCollection();
+        $this->locations = new ArrayCollection();
+        $this->Intrigue = new ArrayCollection();
+        $this->Encounter = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,5 +215,107 @@ class Item
     public function getTypeName(): string
     {
         return("Objet");
+    }
+
+    /**
+     * @return Collection<int, Npc>
+     */
+    public function getNpcs(): Collection
+    {
+        return $this->npcs;
+    }
+
+    public function addNpc(Npc $npc): self
+    {
+        if (!$this->npcs->contains($npc)) {
+            $this->npcs[] = $npc;
+            $npc->addItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNpc(Npc $npc): self
+    {
+        if ($this->npcs->removeElement($npc)) {
+            $npc->removeItem($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Location>
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->addItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->removeElement($location)) {
+            $location->removeItem($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Intrigue>
+     */
+    public function getIntrigue(): Collection
+    {
+        return $this->Intrigue;
+    }
+
+    public function addIntrigue(Intrigue $intrigue): self
+    {
+        if (!$this->Intrigue->contains($intrigue)) {
+            $this->Intrigue[] = $intrigue;
+        }
+
+        return $this;
+    }
+
+    public function removeIntrigue(Intrigue $intrigue): self
+    {
+        $this->Intrigue->removeElement($intrigue);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Encounter>
+     */
+    public function getEncounter(): Collection
+    {
+        return $this->Encounter;
+    }
+
+    public function addEncounter(Encounter $encounter): self
+    {
+        if (!$this->Encounter->contains($encounter)) {
+            $this->Encounter[] = $encounter;
+        }
+
+        return $this;
+    }
+
+    public function removeEncounter(Encounter $encounter): self
+    {
+        $this->Encounter->removeElement($encounter);
+
+        return $this;
     }
 }

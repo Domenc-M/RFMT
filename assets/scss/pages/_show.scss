@@ -1,0 +1,87 @@
+.show-title {
+    font-family:"MoonFirefly";
+    text-align:center;
+    margin-bottom:2rem;
+}
+
+.show-main-flex {
+    display:flex;
+    justify-content:center;
+
+    .show-sub-flex {
+        width:50%;
+        background-image:url("../../img/detailsBG.png");
+        background-size:cover;
+        border-radius:25px;
+        padding:1rem;
+
+        .show-subset-title{
+            font-family:"MoonFirefly";
+            margin-left:2rem;
+            margin-bottom:1rem;
+            margin-top:1rem;
+        }
+    }
+}
+
+.connexion-flex {
+    background-image:url("../../img/detailsBGSide.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+    border-radius:25px;
+
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+
+    width:50%;
+    margin:auto;
+
+    padding:1rem;
+
+    .connexion-element {
+        width:40%;
+
+        .element-list-container {
+            height:5rem;
+        }
+    }
+}
+
+.showTableContainer {
+    display:flex;
+    flex-direction:column;
+    background-image:url("../../img/detailsBG.png");
+    width:50%;
+    margin:auto;
+    background-size:cover;
+    border-radius:15px;
+    gap:0.5rem;
+    padding:3rem 0rem;
+
+    .showTableEntry{
+        display:flex;
+        justify-content:space-between;
+        line-height:1rem;
+        padding: 0rem 5rem;
+    }
+}
+
+.show-table-roll {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin: 4rem 0rem;
+}
+
+.rollResultTitle {
+    font-family:"MoonFirefly";
+    margin:1rem;
+}
+
+.show-button-flex {
+    display:flex;
+    justify-content:center;
+    gap:1rem;
+    margin-top:1rem;
+}

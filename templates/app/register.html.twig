@@ -3,15 +3,32 @@
 {% block title %} Inscription {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <div class="form-container">
 
-        <button type="submit" class="btn">Register</button>
+        <h2 class="form-title">S'inscrire</h2>
+
+        <div class="form-subset">
+    {{ form_label(registrationForm.username, null, {'label': 'Pseudo',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(registrationForm.username, {'attr': {'class': 'formText'}}) }}
+        </div>
+
+        <div class="form-subset">
+    {{ form_label(registrationForm.plainPassword, null, {'label': 'Mot de passe',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'formText'}}) }}
+        </div>
+
+        <button class="blue-button formSubmit" type="submit" class="btn">S'inscrire</button>
+
+    </div>
+
+
+        
     {{ form_end(registrationForm) }}
 {% endblock %}

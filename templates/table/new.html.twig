@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un PNJ {{ parent() }}{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+
+
+<div class="form-container">
+
+<h2 class="form-title">Ajouter une table</h2>
+
+    <div class="form-subset">
+    {{ form_label(form.name, null, {'label': 'Nom de la table',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.name, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.imgFile, null, {'label': 'Image',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.imgFile, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.summary, null, {'label': 'Résumé',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.summary, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <div class="form-subset">
+    {{ form_label(form.type, null, {'label': 'Type de la table',
+        'label_attr': {'class': 'formLabel'}
+    }) }}
+    {{ form_widget(form.type, {'attr': {'class': 'formText'}}) }}
+    </div>
+
+    <h2 class="form-title">Contenu de la table</h2>
+
+        {% for i in 1..20 %}
+            <div class="entryContainer">
+                <div class="entryNumber">{{ i }}</div>
+                <div class="entrySubset"><input name="tableEntry{{ i }}" class="formText" type="text"></div>
+            </div>
+        {% endfor %}
+
+    <div class="form-subset">
+        <input class="blue-button formSubmit" type="submit" value="Valider">
+    </div>
+
+</div>
+{{ form_end(form) }}
+{% endblock %}

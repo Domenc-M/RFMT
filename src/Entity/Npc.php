@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\NpcRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +60,34 @@ class Npc
      * @ORM\Column(type="string", length=255)
      */
     private $img;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Location::class, inversedBy="npcs")
+     */
+    private $Location;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Item::class, inversedBy="npcs")
+     */
+    private $Item;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Intrigue::class, inversedBy="npcs")
+     */
+    private $Intrigue;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Encounter::class, inversedBy="npcs")
+     */
+    private $Encounter;
+
+    public function __construct()
+    {
+        $this->Location = new ArrayCollection();
+        $this->Item = new ArrayCollection();
+        $this->Intrigue = new ArrayCollection();
+        $this->Encounter = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,5 +215,101 @@ class Npc
     public function getTypeName(): string
     {
         return("PNJ");
+    }
+
+    /**
+     * @return Collection<int, Location>
+     */
+    public function getLocation(): Collection
+    {
+        return $this->Location;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->Location->contains($location)) {
+            $this->Location[] = $location;
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        $this->Location->removeElement($location);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Item>
+     */
+    public function getItem(): Collection
+    {
+        return $this->Item;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->Item->contains($item)) {
+            $this->Item[] = $item;
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        $this->Item->removeElement($item);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Intrigue>
+     */
+    public function getIntrigue(): Collection
+    {
+        return $this->Intrigue;
+    }
+
+    public function addIntrigue(Intrigue $intrigue): self
+    {
+        if (!$this->Intrigue->contains($intrigue)) {
+            $this->Intrigue[] = $intrigue;
+        }
+
+        return $this;
+    }
+
+    public function removeIntrigue(Intrigue $intrigue): self
+    {
+        $this->Intrigue->removeElement($intrigue);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Encounter>
+     */
+    public function getEncounter(): Collection
+    {
+        return $this->Encounter;
+    }
+
+    public function addEncounter(Encounter $encounter): self
+    {
+        if (!$this->Encounter->contains($encounter)) {
+            $this->Encounter[] = $encounter;
+        }
+
+        return $this;
+    }
+
+    public function removeEncounter(Encounter $encounter): self
+    {
+        $this->Encounter->removeElement($encounter);
+
+        return $this;
     }
 }

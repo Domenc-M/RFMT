@@ -1,14 +1,37 @@
 .list-main-flex {
     display:flex;
     flex-direction:row;
-    justify-content: space-around;
+    justify-content: space-between;
 
     .list-container {
         display:flex;
-        flex-direction:row;
+        flex-direction:column;
+        align-items:center;
         flex-wrap:wrap;
-        gap:2rem;
         padding:1rem;
+        width:70%;
+
+        .list-title {
+            font-size:1.25rem;
+            font-family:"MoonFirefly";
+            margin-top:1rem;
+        }
+
+        .list-subset {
+            display:flex;
+            flex-direction:row;
+            justify-content:space-evenly;
+            flex-wrap:wrap;
+            gap:1rem;
+        }
+
+        .list-divider {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            margin: 1rem 0rem;
+            width:100%;
+        }
     }
 
     .search-sidebar {

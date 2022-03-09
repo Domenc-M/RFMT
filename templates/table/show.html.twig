@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ table.name }} - {{ parent()}}{% endblock %}
+
+{% block body %}
+<h2 class="show-title">{{ table.name }}</h2>
+
+<section class="show-main-flex">
+
+    {{ include('_cardShow.html.twig', {item: table}, with_context = false) }}
+
+</section>
+
+<section class="show-table-roll">
+
+<span id="show-roll-button" class="blue-button">Lancer le dé</span>
+
+<div id="roll-result-container"></div>
+
+</section>
+
+<section class="showTableContainer">
+    {% for i, content in table.content %}
+    <div class="showTableEntry">
+        <p>{{i+1}}</p>
+        <p>{{ content }}</p>
+    </div>
+    {% endfor %}
+</section>
+
+
+<div class="show-button-flex">
+    <a class="blue-button" href="{{ path('app_searchOther') }}">Retour à la recherche</a>
+
+    <a class="blue-button" href="{{ path('table_edit', {'id': table.id}) }}">Modifier</a>
+
+    {{ include('table/_delete_form.html.twig') }}
+</div>
+
+<script>
+    var array = {{ table.content|json_encode | raw }}
+</script>
+
+{% endblock %}

@@ -37,14 +37,18 @@ height:30rem;
                 justify-content:space-evenly;
                 gap:2rem;
 
-                li a {
-                    font-family:"MoonFirefly";
-                    color: $cyan;
+                li {
 
-                    &:hover {
-                        color: $white;
-                        text-shadow: $white 0px 0 10px;
-                    }
+                    font-family:"MoonFirefly";
+
+                    a {
+                        color: $cyan;
+
+                        &:hover {
+                            color: $white;
+                            text-shadow: $white 0px 0 10px;
+                        }
+                    } 
                 }
             }
         }

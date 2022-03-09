@@ -46,9 +46,20 @@ main {
     z-index:0;
 }
 
+.underline{
+    height:1px;
+    width:60%;
+    background-color:$white;
+    margin:1rem auto;
+}
+
+.show-style {
+    white-space: pre-wrap;
+}
+
 @media screen and (min-width:$lg) {
 
     main{
-        padding-bottom:48rem;
+        padding-bottom:54rem;
     }
 }

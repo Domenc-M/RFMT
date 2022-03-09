@@ -19,6 +19,19 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
+    public function searchBy($filter, $searchKey, $creator)
+    {
+        return $this->createQueryBuilder('n')
+            ->Where("n.".$filter." LIKE :searchKey")
+            ->andWhere("n.creator  = :creator")
+            ->setParameter('searchKey', "%".$searchKey."%")
+            ->setParameter('creator', $creator)
+            ->orderBy('n.updatedAt', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Item[] Returns an array of Item objects
     //  */

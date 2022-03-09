@@ -69,6 +69,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $hooks;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Table::class, mappedBy="creator", orphanRemoval=true)
+     */
+    private $tables;
+
     public function __construct()
     {
         $this->Npcs = new ArrayCollection();
@@ -77,6 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->encounters = new ArrayCollection();
         $this->intrigues = new ArrayCollection();
         $this->hooks = new ArrayCollection();
+        $this->tables = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -337,6 +343,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($hook->getCreator() === $this) {
                 $hook->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Table>
+     */
+    public function getTables(): Collection
+    {
+        return $this->tables;
+    }
+
+    public function addTable(Table $table): self
+    {
+        if (!$this->tables->contains($table)) {
+            $this->tables[] = $table;
+            $table->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTable(Table $table): self
+    {
+        if ($this->tables->removeElement($table)) {
+            // set the owning side to null (unless already changed)
+            if ($table->getCreator() === $this) {
+                $table->setCreator(null);
             }
         }
 

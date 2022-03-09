@@ -1,17 +1,39 @@
 .cardContainer {
-    position:relative;
-    background-image:url("../../img/cardBG.png");
+    transition:all 0.2s;
     height:375px;
     width:250px;
-    overflow:hidden;
-    border-radius:15px;
-    box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.5);
-    background-size:cover;
-    transition:all 0.2s;
 
     &:hover {
         box-shadow: $white 0px 0 10px;
     }
+
+    p{
+        position:absolute;
+        top:70%;
+        left:5%;
+        width:220px;
+    }
+}
+
+.cardContainerShow {
+    height:600px;
+    width:400px;
+
+    p{
+        position:absolute;
+        top:70%;
+        left:5%;
+        width:360px;
+    }
+}
+
+.cardContainer, .cardContainerShow {
+    position:relative;
+    background-image:url("../../img/cardBG.png");
+    overflow:hidden;
+    border-radius:15px;
+    box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.5);
+    background-size:cover;
 
     .cardImgContainer{
         position:absolute;
@@ -56,13 +78,6 @@
             font-family:"MoonFirefly";
             width:220px;
             text-align:center;
-        }
-
-        p{
-            position:absolute;
-            top:70%;
-            left:5%;
-            width:220px;
         }
     }
 }

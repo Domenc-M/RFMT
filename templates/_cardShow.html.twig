@@ -1,0 +1,11 @@
+<article class="cardContainerShow">
+    <div class="cardImgContainer">
+        <img src={{ asset('uploads/img/' ~ item.img) }} alt=""/>
+    </div>
+
+    <div class="card-front">
+        <img src={{ asset('build/img/cardFront.png') }} alt="">
+        <h3 class="card-name">{{ item.name }}</h3>
+        <p>{{ item.summary }}</p>
+    </div>
+</article>

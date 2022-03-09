@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('hook_delete', {'id': hook.id}) }}" onsubmit="return confirm('Êtes-vous sur de vouloir supprimer cette amorce ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ hook.id) }}">
+    <button class="blue-button">Supprimer</button>
+</form>

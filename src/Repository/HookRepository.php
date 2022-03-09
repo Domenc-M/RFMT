@@ -19,6 +19,17 @@ class HookRepository extends ServiceEntityRepository
         parent::__construct($registry, Hook::class);
     }
 
+    public function searchBy($filter, $searchKey)
+    {
+        return $this->createQueryBuilder('n')
+            ->Where("n.".$filter." LIKE :searchKey")
+            ->setParameter('searchKey', "%".$searchKey."%")
+            ->orderBy('n.updatedAt', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Hook[] Returns an array of Hook objects
     //  */

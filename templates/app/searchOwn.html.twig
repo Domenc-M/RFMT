@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rechercher {{ parent() }}{% endblock %}
+{% block title %}Mes notes {{ parent() }}{% endblock %}
 
 {% block body %}
     <h2 class="list-header">Mes notes</h2>
@@ -74,13 +74,70 @@
 
 <section class="list-container">
 
-        {% for item in items %}
+        {% if npcs %}
+            <div class="list-divider">
+                <h2 class="list-title">PNJS</h2>
+                <div class="underline"></div>
+            </div>
 
-            {{ include('_card.html.twig', {item: item}, with_context = false) }}
-        
-        {% else %}
-            <h2>Aucun résultat trouvé, désolé !</h2>
-        {% endfor %}
+            <div class="list-subset">
+                {% for npc in npcs %}
+                    {{ include('_card.html.twig', {item: npc}, with_context = false) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if locations %}
+            <div class="list-divider">
+                <h2 class="list-title">Lieux</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="list-subset">
+                {% for location in locations %}
+                    {{ include('_card.html.twig', {item: location}, with_context = false) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if items %}
+            <div class="list-divider">
+                <h2 class="list-title">Objets</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="list-subset">
+                {% for item in items %}
+                    {{ include('_card.html.twig', {item: item}, with_context = false) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if encounters %}
+            <div class="list-divider">
+                <h2 class="list-title">Rencontres</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="list-subset">
+                {% for encounter in encounters %}
+                    {{ include('_card.html.twig', {item: encounter}, with_context = false) }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if intrigues %}
+            <div class="list-divider">
+                <h2 class="list-title">Intrigues</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="list-subset">
+                {% for intrigue in intrigues %}
+                    {{ include('_card.html.twig', {item: intrigue}, with_context = false) }}
+                {% endfor %}
+            </div>
+        {% endif %}
 </section>
 
 </div>

@@ -175,4 +175,14 @@ class Hook
 
         return $this;
     }
+
+    public function getPath(): string
+    {
+        return("hook");
+    }
+
+    public function getTypeName(): string
+    {
+        return("Amorce");
+    }
 }

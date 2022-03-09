@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rechercher {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h2 class="list-header">Rechercher</h2>
+
+    <section class="list-button-flex">
+        <a href="{{ path('table_new') }}" class="blue-button">Nouvelle table</a>
+        <a href="{{ path('hook_new') }}" class="blue-button">Nouvelle amorce</a>
+    </section>
+
+<div class="list-main-flex">
+
+<section class="search-sidebar">
+    <form action="">
+
+        <div class="search-container">
+            <input class="search-input" type="text" name="searchKey" placeholder="Recherche">
+            <input class="search-button" type="submit" value="Go !">
+        </div>
+
+        <div class="radio-container">
+            <span>Rechercher dans :</span>
+            <div class="sidebar-subset">
+                <input type="radio" id="filter1" name="filter" value="title" checked>
+                <label for="filter1">Titre</label>
+            </div>
+            <div>
+                <input type="radio" id="filter2" name="filter" value="summary">
+                <label for="filter2">Résumé</label>
+            </div>
+            <div>
+                <input type="radio" id="filter3" name="filter" value="creator">
+                <label for="filter3">Créateur</label>
+            </div>
+        </div>
+
+        <div class="checkbox-container">
+            <span>Catégories :</span>
+            <div class="radio-container">
+                <span>Rechercher dans :</span>
+                <div class="sidebar-subset">
+                    <input type="radio" id="category1" name="category" value="table" checked>
+                    <label for="category1">Tables aléatoires</label>
+                </div>
+                <div>
+                    <input type="radio" id="category2" name="category" value="hook">
+                    <label for="category2">Amorces</label>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</section>
+
+<section class="list-container">
+
+            <div class="list-divider">
+                <h2 class="list-title">{{ category }}</h2>
+                <div class="underline"></div>
+            </div>
+
+            <div class="list-subset">
+                {% for result in results %}
+                    {{ include('_card.html.twig', {item: result}, with_context = false) }}
+                {% endfor %}
+            </div>
+</section>
+
+</div>
+
+{% endblock %}

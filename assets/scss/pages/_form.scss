@@ -21,12 +21,32 @@
             min-height:5rem;
         }
 
-        .formText {
-            background-color: $dark;
-            color:$white;
-            border:none;
-            font-family:Helvetica;
+    }
+
+    .entryContainer {
+        display:flex;
+        justify-content:center;
+        width:50vw;
+        box-sizing:content-box;
+
+        .entryNumber {
+            width:25%;
         }
+
+        .entrySubset {
+            width:75%;
+
+            .formText {
+                width:100%;
+            }
+        }
+    }
+
+    .formText {
+        background-color: $dark;
+        color:$white;
+        border:none;
+        font-family:Helvetica;
     }
 
     .formSubmit{
@@ -37,6 +57,10 @@
 @media screen and (min-width:$lg) {
 
 .form-subset {
+    width:25vw;
+}
+
+.entryContainer {
     width:25vw;
 }
 }

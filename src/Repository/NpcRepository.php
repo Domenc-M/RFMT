@@ -22,19 +22,19 @@ class NpcRepository extends ServiceEntityRepository
     // /**
     //  * @return Npc[] Returns an array of Npc objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function searchBy($filter, $searchKey, $creator)
     {
         return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('n.id', 'ASC')
-            ->setMaxResults(10)
+            ->Where("n.".$filter." LIKE :searchKey")
+            ->andWhere("n.creator  = :creator")
+            ->setParameter('searchKey', "%".$searchKey."%")
+            ->setParameter('creator', $creator)
+            ->orderBy('n.updatedAt', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Npc
