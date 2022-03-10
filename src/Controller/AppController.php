@@ -26,10 +26,22 @@ class AppController extends AbstractController
     /**
      * @Route("/", name="app_index")
      */
-    public function index(): Response
+    public function index(ManagerRegistry $doctrine): Response
     {
+        $hook = $doctrine->getRepository(Hook::class)->findBy(
+            [],
+            ['updatedAt' => 'DESC'],
+            4
+        );
+        $table = $doctrine->getRepository(Table::class)->findBy(
+            [],
+            ['updatedAt' => 'DESC'],
+            4
+        );
         return $this->render('app/index.html.twig', [
             'controller_name' => 'AppController',
+            'hook' => $hook,
+            'table' => $table
         ]);
     }
 
@@ -117,10 +129,6 @@ class AppController extends AbstractController
         if($request->query->get('filter') == "summary")
         {
             $filter = "summary";
-        }
-        else if ($request->query->get('filter') == "creator")
-        {
-            $filter = "creator_id";
         }
         else
         {

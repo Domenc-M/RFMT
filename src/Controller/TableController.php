@@ -20,7 +20,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class TableController extends AbstractController
 {
     /**
-     * @Route("/new", name="table_new", methods={"GET", "POST"})
+     * @Route("/public/new", name="table_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager,
                         Security $security, SluggerInterface $slugger): Response
@@ -97,17 +97,48 @@ class TableController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="table_edit", methods={"GET", "POST"})
+     * @Route("/public/{id}/edit", name="table_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Table $table, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Table $table, EntityManagerInterface $entityManager,
+                            SluggerInterface $slugger): Response
     {
         $form = $this->createForm(TableType::class, $table);
+        $oldImg = $table->getImg();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $img = $form->get('imgFile')->getData();
+
+            if(!$img || $img->getClientOriginalName() == $oldImg)
+            {
+                $table->setImg($oldImg);
+            }
+            else
+            {
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                //Slug to make file name safe
+                $safeFilename = $slugger->slug($originalFilename);
+                //Uniqid to prevent twice the same name in DB, so they dont replace each other.
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+                try {
+                    $img->move(
+                        $this->getParameter('img_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // TODO
+                }
+
+                if($oldImg != "basic.png")
+                {
+                    unlink($this->getParameter('img_directory')."/".$oldImg);
+                }
+
+                $table->setImg($newFilename);
+            }
             $entityManager->flush();
 
-            return $this->redirectToRoute('table_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('table_index', ['category' => 'table'], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('table/edit.html.twig', [
@@ -126,6 +157,6 @@ class TableController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('table_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_searchOther', [], Response::HTTP_SEE_OTHER);
     }
 }

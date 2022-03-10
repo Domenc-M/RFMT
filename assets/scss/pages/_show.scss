@@ -7,13 +7,20 @@
 .show-main-flex {
     display:flex;
     justify-content:center;
+    flex-direction:column;
+    align-items:center;
 
     .show-sub-flex {
-        width:50%;
+        width:70%;
         background-image:url("../../img/detailsBG.png");
         background-size:cover;
         border-radius:25px;
         padding:1rem;
+        min-height:200px;
+
+        p {
+            line-height:1.2rem;
+        }
 
         .show-subset-title{
             font-family:"MoonFirefly";
@@ -31,19 +38,40 @@
     border-radius:25px;
 
     display:flex;
-    justify-content:space-around;
+    justify-content:flex-start;
     flex-wrap:wrap;
 
-    width:50%;
+    width:70%;
     margin:auto;
 
     padding:1rem;
 
     .connexion-element {
-        width:40%;
+        width:50%;
+
+        .element-title {
+            font-size:1rem;
+            font-family:"MoonFirefly";
+            margin-bottom:1rem;
+        }
+
+        .element-name {
+            color:$cyan;
+        }
 
         .element-list-container {
-            height:5rem;
+            display:flex;
+            flex-direction:column;
+            min-height:10rem;
+        }
+
+        .small-button {
+            align-self:flex-start;
+        }
+
+        .formText {
+            align-self:flex-start;
+            margin-top:1rem;
         }
     }
 }
@@ -52,7 +80,7 @@
     display:flex;
     flex-direction:column;
     background-image:url("../../img/detailsBG.png");
-    width:50%;
+    width:70%;
     margin:auto;
     background-size:cover;
     border-radius:15px;
@@ -62,7 +90,8 @@
     .showTableEntry{
         display:flex;
         justify-content:space-between;
-        line-height:1rem;
+        line-height:2rem;
+        font-size:2rem;
         padding: 0rem 5rem;
     }
 }
@@ -84,4 +113,45 @@
     justify-content:center;
     gap:1rem;
     margin-top:1rem;
+
+    .blue-button {
+        font-size:2rem;
+    }
+}
+
+#show-roll-button {
+    font-size:3rem;
+    padding:1rem;
+}
+
+@media screen and (min-width:$lg) {
+    .show-main-flex {
+        flex-direction:row;
+    }
+
+    .show-sub-flex {
+        height:560px;
+        padding:0rem !important;
+        width:50% !important;
+        padding:2rem !important;
+    }
+
+    .showTableEntry {
+        line-height:1rem !important;
+        font-size:1rem !important;
+    }
+    .show-button-flex {
+        .blue-button {
+            font-size:1rem;
+        }
+    }
+
+    #show-roll-button {
+    font-size:1rem;
+    padding:1rem;
+    }
+
+    .blue-button {
+        font-size:1rem;
+    }
 }

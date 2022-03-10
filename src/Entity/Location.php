@@ -81,12 +81,24 @@ class Location
      */
     private $Encounter;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Location::class, inversedBy="locations")
+     */
+    private $location;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Location::class, mappedBy="location")
+     */
+    private $locations;
+
     public function __construct()
     {
         $this->npcs = new ArrayCollection();
         $this->Item = new ArrayCollection();
         $this->Intrigue = new ArrayCollection();
         $this->Encounter = new ArrayCollection();
+        $this->location = new ArrayCollection();
+        $this->locations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -314,5 +326,42 @@ class Location
         $this->Encounter->removeElement($encounter);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getLocation(): Collection
+    {
+        return $this->location;
+    }
+
+    public function addLocation(self $location): self
+    {
+        if (!$this->location->contains($location)) {
+            $this->location[] = $location;
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(self $location): self
+    {
+        $this->location->removeElement($location);
+
+        return $this;
+    }
+    
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
     }
 }

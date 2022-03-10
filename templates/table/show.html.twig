@@ -19,6 +19,7 @@
 
 </section>
 
+
 <section class="showTableContainer">
     {% for i, content in table.content %}
     <div class="showTableEntry">
@@ -29,13 +30,17 @@
 </section>
 
 
-<div class="show-button-flex">
-    <a class="blue-button" href="{{ path('app_searchOther') }}">Retour à la recherche</a>
+        <div class="show-button-flex">
+            <a class="blue-button" href="{{ path('app_searchOther', {'category':'table'}) }}">Retour à la recherche</a>
+            {% if app.user %}
+                {% if app.user.id == table.creator.id  %}
+                        <a class="blue-button" href="{{ path('table_edit', {'id': table.id}) }}">Modifier</a>
 
-    <a class="blue-button" href="{{ path('table_edit', {'id': table.id}) }}">Modifier</a>
+                        {{ include('table/_delete_form.html.twig') }}
+                {% endif %}
+            {% endif %}
+        </div>
 
-    {{ include('table/_delete_form.html.twig') }}
-</div>
 
 <script>
     var array = {{ table.content|json_encode | raw }}

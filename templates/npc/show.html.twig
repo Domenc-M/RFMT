@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ npc.name }} - {{ parent()}}{% endblock %}
+{% block title %} {{ npc.name }} {{ parent()}}{% endblock %}
 
 {% block body %}
 <h2 class="show-title">{{ npc.name }}</h2>
@@ -18,45 +18,92 @@
     </div>
 </div>
 
-<div class="connexion-flex">
+<form class="connexion-flex" method="POST" action="">
+
+    <div class="connexion-element">
+        <h3 class="element-title">PNJS : </h3>
+        <div class="element-list-container">
+            {% for npcLink in npc.getNpc() %}
+                <a class="element-name" href="{{ path('npc_show', {'id': npcLink.id}) }}">-{{ npcLink.name }}</a>
+            {% endfor %}
+        <select class="formText" id="npcAdd" name="npcAdd">
+                <option disabled selected value> -- Ajouter un PNJ -- </option>
+            {% for nAdd in npcAdd %}
+                <option value={{ nAdd.id }}>{{ nAdd.name }}</option>
+            {% endfor %}
+        </select>
+        <input class="small-button" type="submit" value="Ajouter">
+        </div>
+    </div>
 
     <div class="connexion-element">
         <h3 class="element-title">Objets : </h3>
         <div class="element-list-container">
-            {% for item in npc.getItem() %}
-                <a class="element-name" href="">{{ item.name }}</a>
+            {% for itemLink in npc.getItem() %}
+                <a class="element-name" href="{{ path('item_show', {'id': itemLink.id}) }}">-{{ itemLink.name }}</a>
             {% endfor %}
+            <select class="formText" id="itemAdd" name="itemAdd">
+                    <option disabled selected value> -- Ajouter un objet -- </option>
+                {% for itAdd in itemAdd %}
+                    <option value={{ itAdd.id }}>{{ itAdd.name }}</option>
+                {% endfor %}
+            </select>
+            <input class="small-button" type="submit" value="Ajouter">
         </div>
     </div>
 
     <div class="connexion-element">
         <h3 class="element-title">Lieux : </h3>
         <div class="element-list-container">
-            {% for location in npc.getLocation() %}
-                <a class="element-name" href="">{{ location.name }}</a>
+            {% for locationLink in npc.getLocation() %}
+                <a class="element-name" href="{{ path('location_show', {'id': locationLink.id}) }}">-{{ locationLink.name }}</a>
             {% endfor %}
+        
+        <select class="formText" id="locationAdd" name="locationAdd">
+                <option disabled selected value> -- Ajouter un lieu -- </option>
+            {% for lAdd in locationAdd %}
+                <option value={{ lAdd.id }}>{{ lAdd.name }}</option>
+            {% endfor %}
+        </select>
+        <input class="small-button" type="submit" value="Ajouter">
         </div>
     </div>
 
     <div class="connexion-element">
         <h3 class="element-title">Rencontres : </h3>
         <div class="element-list-container">
-            {% for encounter in npc.getEncounter() %}
-                <a class="element-name" href="">{{ encounter.name }}</a>
+            {% for encounterLink in npc.getEncounter() %}
+                <a class="element-name" href="{{ path('encounter_show', {'id': encounterLink.id}) }}">-{{ encounterLink.name }}</a>
             {% endfor %}
+        
+        <select class="formText" id="encounterAdd" name="encounterAdd">
+                <option disabled selected value> -- Ajouter une rencontre -- </option>
+            {% for eAdd in encounterAdd %}
+                <option value={{ eAdd.id }}>{{ eAdd.name }}</option>
+            {% endfor %}
+        </select>
+        <input class="small-button" type="submit" value="Ajouter">
         </div>
     </div>
 
     <div class="connexion-element">
         <h3 class="element-title">Intrigues : </h3>
         <div class="element-list-container">
-            {% for intrigue in npc.getIntrigue() %}
-                <a class="element-name" href="">{{ intrigue.name }}</a>
+            {% for intrigueLink in npc.getIntrigue() %}
+                <a class="element-name" href="{{ path('intrigue_show', {'id': intrigueLink.id}) }}">-{{ intrigueLink.name }}</a>
             {% endfor %}
+        
+            <select class="formText" id="intrigueAdd" name="intrigueAdd">
+                    <option disabled selected value> -- Ajouter une intrigue -- </option>
+                {% for inAdd in intrigueAdd %}
+                    <option value={{ inAdd.id }}>{{ inAdd.name }}</option>
+                {% endfor %}
+            </select>
+            <input class="small-button" type="submit" value="Ajouter">
         </div>
     </div>
 
-</div>
+</form>
 
 
 <div class="show-button-flex">
@@ -64,7 +111,7 @@
 
     <a class="blue-button" href="{{ path('npc_edit', {'id': npc.id}) }}">Modifier</a>
 
-    {{ include('npc/_delete_form.html.twig') }}
+    {# {{ include('npc/_delete_form.html.twig') }} #}
 </div>
 
 {% endblock %}

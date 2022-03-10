@@ -2,10 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Encounter;
+use App\Entity\Intrigue;
+use App\Entity\Item;
+use App\Entity\Location;
 use App\Entity\Npc;
 use App\Form\NpcType;
 use App\Repository\NpcRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,12 +74,114 @@ class NpcController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="npc_show", methods={"GET"})
+     * @Route("/{id}", name="npc_show", methods={"GET", "POST"})
      */
-    public function show(Npc $npc): Response
+    public function show(Npc $npc, Request $request, ManagerRegistry $doctrine, Security $security,
+                        EntityManagerInterface $entityManager): Response
     {
+        $npcUser = $doctrine->getRepository(Npc::class)->findBy(
+            ['creator' => $security->getUser()],
+            ['name' => 'ASC']
+        );
+        $npcLink = $npc->getNpc()->toArray();
+        array_push($npcLink, $npc);
+        $npcAdd = array_diff($npcUser, $npcLink);
+        $npcAdd = new ArrayCollection($npcAdd);
+
+        $locationUser = $doctrine->getRepository(Location::class)->findBy(
+            ['creator' => $security->getUser()],
+            ['name' => 'ASC']
+        );
+        $locationLink = $npc->getLocation()->toArray();
+        $locationAdd = array_diff($locationUser, $locationLink);
+        $locationAdd = new ArrayCollection($locationAdd);
+
+        $itemUser = $doctrine->getRepository(Item::class)->findBy(
+            ['creator' => $security->getUser()],
+            ['name' => 'ASC']
+        );
+        $itemLink = $npc->getItem()->toArray();
+        $itemAdd = array_diff($itemUser, $itemLink);
+        $itemAdd = new ArrayCollection($itemAdd);
+
+        $intrigueUser = $doctrine->getRepository(Intrigue::class)->findBy(
+            ['creator' => $security->getUser()],
+            ['name' => 'ASC']
+        );
+        $intrigueLink = $npc->getIntrigue()->toArray();
+        $intrigueAdd = array_diff($intrigueUser, $intrigueLink);
+        $intrigueAdd = new ArrayCollection($intrigueAdd);
+
+        $encounterUser = $doctrine->getRepository(Encounter::class)->findBy(
+            ['creator' => $security->getUser()],
+            ['name' => 'ASC']
+        );
+        $encounterLink = $npc->getEncounter()->toArray();
+        $encounterAdd = array_diff($encounterUser, $encounterLink);
+        $encounterAdd = new ArrayCollection($encounterAdd);
+
+        if($request->isMethod('POST'))
+        {
+            if($request->request->get('npcAdd'))
+            {
+                $npcToAdd = $doctrine->getRepository(Npc::class)->find($request->request->get('npcAdd'));
+                if($npcToAdd->getCreator() == $security->getUser())
+                {
+                    $npc->addNpc($npcToAdd);
+                    $npcToAdd->addNpc($npc);
+                }
+            }
+
+            if($request->request->get('locationAdd'))
+            {
+                $locationToAdd = $doctrine->getRepository(Location::class)->find($request->request->get('locationAdd'));
+                if($locationToAdd->getCreator() == $security->getUser())
+                {
+                    $npc->addLocation($locationToAdd);
+                    $locationToAdd->addNpc($npc);
+                }
+            }
+
+            if($request->request->get('itemAdd'))
+            {
+                $itemToAdd = $doctrine->getRepository(Item::class)->find($request->request->get('itemAdd'));
+                if($itemToAdd->getCreator() == $security->getUser())
+                {
+                    $npc->addItem($itemToAdd);
+                    $itemToAdd->addNpc($npc);
+                }
+            }
+
+            if($request->request->get('intrigueAdd'))
+            {
+                $intrigueToAdd = $doctrine->getRepository(Intrigue::class)->find($request->request->get('intrigueAdd'));
+                if($intrigueToAdd->getCreator() == $security->getUser())
+                {
+                    $npc->addIntrigue($intrigueToAdd);
+                    $intrigueToAdd->addNpc($npc);
+                }
+            }
+
+            if($request->request->get('encounterAdd'))
+            {
+                $encounterToAdd = $doctrine->getRepository(Encounter::class)->find($request->request->get('encounterAdd'));
+                if($encounterToAdd->getCreator() == $security->getUser())
+                {
+                    $npc->addEncounter($encounterToAdd);
+                    $encounterToAdd->addNpc($npc);
+                }
+            }
+
+            $entityManager->flush();
+        }
+
         return $this->render('npc/show.html.twig', [
             'npc' => $npc,
+            'npcAdd' => $npcAdd,
+            'locationAdd' => $locationAdd,
+            'itemAdd' => $itemAdd,
+            'intrigueAdd' => $intrigueAdd,
+            'encounterAdd' => $encounterAdd
         ]);
     }
 
@@ -130,7 +239,7 @@ class NpcController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="npc_delete", methods={"POST"})
+     * @Route("/{id}/delete", name="npc_delete", methods={"POST"})
      */
     public function delete(Request $request, Npc $npc, EntityManagerInterface $entityManager): Response
     {

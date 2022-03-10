@@ -20,7 +20,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class HookController extends AbstractController
 {
     /**
-     * @Route("/new", name="hook_new", methods={"GET", "POST"})
+     * @Route("/public/new", name="hook_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager,
                         Security $security, SluggerInterface $slugger): Response
@@ -77,7 +77,7 @@ class HookController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="hook_edit", methods={"GET", "POST"})
+     * @Route("/public/{id}/edit", name="hook_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Hook $hook, EntityManagerInterface $entityManager,
                         SluggerInterface $slugger): Response

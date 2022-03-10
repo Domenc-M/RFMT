@@ -81,12 +81,24 @@ class Npc
      */
     private $Encounter;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Npc::class, inversedBy="npcs")
+     */
+    private $npc;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Npc::class, mappedBy="npc")
+     */
+    private $npcs;
+
     public function __construct()
     {
         $this->Location = new ArrayCollection();
         $this->Item = new ArrayCollection();
         $this->Intrigue = new ArrayCollection();
         $this->Encounter = new ArrayCollection();
+        $this->npc = new ArrayCollection();
+        $this->npcs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -311,5 +323,42 @@ class Npc
         $this->Encounter->removeElement($encounter);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getNpc(): Collection
+    {
+        return $this->npc;
+    }
+
+    public function addNpc(self $npc): self
+    {
+        if (!$this->npc->contains($npc)) {
+            $this->npc[] = $npc;
+        }
+
+        return $this;
+    }
+
+    public function removeNpc(self $npc): self
+    {
+        $this->npc->removeElement($npc);
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getNpcs(): Collection
+    {
+        return $this->npcs;
     }
 }

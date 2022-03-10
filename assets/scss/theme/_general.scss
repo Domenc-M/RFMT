@@ -37,12 +37,30 @@ main {
     box-shadow: $white 0px 0 10px;
 }
 
+.small-button {
+    background-color: $cyan;
+    border-radius:5px;
+    color:$white;
+    border:none;
+    cursor:pointer;
+    padding:0.3rem 0.6rem;
+    font-size:0.8rem;
+    font-family:"MoonFirefly";
+    transition:all 0.2s;
+}
+
+.small-button:hover {
+    color:$cyan;
+    background-color:$white;
+    box-shadow: $white 0px 0 10px;
+}
+
 .svg-bot {
     filter: invert(10%) sepia(5%) saturate(625%) hue-rotate(181deg) brightness(96%) contrast(91%);
     width:100%;
     position:absolute;
     bottom:0px;
-    margin-bottom:10rem;
+    margin-bottom:6rem;
     z-index:0;
 }
 
@@ -57,7 +75,7 @@ main {
     white-space: pre-wrap;
 }
 
-@media screen and (min-width:$lg) {
+@media screen and (min-width:$md) {
 
     main{
         padding-bottom:54rem;

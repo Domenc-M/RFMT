@@ -33,7 +33,7 @@
     .index-new-sublist{
         display:flex;
         flex-wrap:wrap;
-        gap:1rem;
+        gap:4rem;
         justify-content:space-evenly;
 
         .index-new-title-container{
@@ -46,11 +46,8 @@
             text-align:center;
         }
 
-        .card-container {
-            width:40%;
-            border-radius:6px;
-            overflow:hidden;
-            box-shadow: 5px 5px 5px 1px $dark;
+        .index-card-container {
+            width:35%;
 
 
             img {

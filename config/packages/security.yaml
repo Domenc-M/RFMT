@@ -43,6 +43,8 @@ security:
          - { path: ^/encounter, roles: ROLE_USER }
          - { path: ^/item, roles: ROLE_USER }
          - { path: ^/searchown, roles: ROLE_USER }
+         - { path: ^/table/public, roles: ROLE_USER }
+         - { path: ^/hook/public, roles: ROLE_USER }
 
 when@test:
     security:

@@ -86,12 +86,24 @@ class Encounter
      */
     private $intrigues;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Encounter::class, inversedBy="encounters")
+     */
+    private $encounter;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Encounter::class, mappedBy="encounter")
+     */
+    private $encounters;
+
     public function __construct()
     {
         $this->npcs = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->intrigues = new ArrayCollection();
+        $this->encounter = new ArrayCollection();
+        $this->encounters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -314,6 +326,11 @@ class Encounter
 
         return $this;
     }
+    
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 
     /**
      * @return Collection<int, Intrigue>
@@ -340,5 +357,37 @@ class Encounter
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getEncounter(): Collection
+    {
+        return $this->encounter;
+    }
+
+    public function addEncounter(self $encounter): self
+    {
+        if (!$this->encounter->contains($encounter)) {
+            $this->encounter[] = $encounter;
+        }
+
+        return $this;
+    }
+
+    public function removeEncounter(self $encounter): self
+    {
+        $this->encounter->removeElement($encounter);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getEncounters(): Collection
+    {
+        return $this->encounters;
     }
 }

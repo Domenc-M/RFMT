@@ -19,12 +19,16 @@
 </div>
 
 
-<div class="show-button-flex">
-    <a class="blue-button" href="{{ path('app_searchOther') }}">Retour à la recherche</a>
+        <div class="show-button-flex">
+            <a class="blue-button" href="{{ path('app_searchOther', {'category': "hook"}) }}">Retour à la recherche</a>
+                {% if app.user %}
+                    {% if app.user.id == hook.creator.id  %}
+                            <a class="blue-button" href="{{ path('hook_edit', {'id': hook.id}) }}">Modifier</a>
 
-    <a class="blue-button" href="{{ path('hook_edit', {'id': hook.id}) }}">Modifier</a>
+                            {{ include('hook/_delete_form.html.twig') }}
+                    {% endif %}
+                {% endif %}
+        </div>
 
-    {{ include('hook/_delete_form.html.twig') }}
-</div>
 
 {% endblock %}

@@ -76,6 +76,8 @@
             display:flex;
             flex-direction:column;
             gap:1rem;
+            font-size:2rem;
+            margin-bottom:1rem;
 
             span {
                 font-family:"MoonFirefly";
@@ -87,6 +89,7 @@
             display:flex;
             flex-direction:column;
             gap:1rem;
+            font-size:2rem;
 
             span {
                 font-family:"MoonFirefly";
@@ -95,6 +98,11 @@
         }
     }
 
+}
+
+.creator-name {
+    text-align:center;
+    margin-top:0.2rem;
 }
 
 .list-header {
@@ -109,9 +117,25 @@
     justify-content:center;
     gap:2rem;
     padding-bottom:3rem;
+    flex-wrap:wrap;
+
+    .blue-button {
+        width:25%;
+        text-align:center;
+        padding:1rem;
+        font-size:1.4rem;
+    }
 }
 
 @media screen and (min-width:$lg) {
+    .list-button-flex {
+        flex-wrap:nowrap;
+
+        .blue-button {
+            width:auto;
+            font-size:1rem;
+        }
+    }
     .search-input {
         line-height:1rem !important;
         font-size:1rem !important;
@@ -119,6 +143,10 @@
 
     .search-button {
         line-height:1rem;
+    }
+
+    .radio-container, .checkbox-container {
+        font-size:1rem !important;
     }
 
 }

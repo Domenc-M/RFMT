@@ -86,12 +86,24 @@ class Intrigue
      */
     private $Encounter;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Intrigue::class, inversedBy="intrigues")
+     */
+    private $intrigue;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Intrigue::class, mappedBy="intrigue")
+     */
+    private $intrigues;
+
     public function __construct()
     {
         $this->npcs = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->Encounter = new ArrayCollection();
+        $this->intrigue = new ArrayCollection();
+        $this->intrigues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -337,5 +349,42 @@ class Intrigue
         $this->Encounter->removeElement($encounter);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getIntrigue(): Collection
+    {
+        return $this->intrigue;
+    }
+
+    public function addIntrigue(self $intrigue): self
+    {
+        if (!$this->intrigue->contains($intrigue)) {
+            $this->intrigue[] = $intrigue;
+        }
+
+        return $this;
+    }
+
+    public function removeIntrigue(self $intrigue): self
+    {
+        $this->intrigue->removeElement($intrigue);
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getIntrigues(): Collection
+    {
+        return $this->intrigues;
     }
 }

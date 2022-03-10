@@ -81,12 +81,24 @@ class Item
      */
     private $Encounter;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Item::class, inversedBy="items")
+     */
+    private $item;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Item::class, mappedBy="item")
+     */
+    private $items;
+
     public function __construct()
     {
         $this->npcs = new ArrayCollection();
         $this->locations = new ArrayCollection();
         $this->Intrigue = new ArrayCollection();
         $this->Encounter = new ArrayCollection();
+        $this->item = new ArrayCollection();
+        $this->items = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -317,5 +329,42 @@ class Item
         $this->Encounter->removeElement($encounter);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getItem(): Collection
+    {
+        return $this->item;
+    }
+
+    public function addItem(self $item): self
+    {
+        if (!$this->item->contains($item)) {
+            $this->item[] = $item;
+        }
+
+        return $this;
+    }
+
+    public function removeItem(self $item): self
+    {
+        $this->item->removeElement($item);
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
     }
 }

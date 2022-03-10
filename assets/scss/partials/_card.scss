@@ -9,9 +9,10 @@
 
     p{
         position:absolute;
-        top:70%;
+        top:71%;
         left:5%;
         width:220px;
+        font-size:1rem;
     }
 }
 
@@ -24,6 +25,7 @@
         top:70%;
         left:5%;
         width:360px;
+        font-size:1.2rem;
     }
 }
 
@@ -79,5 +81,13 @@
             width:220px;
             text-align:center;
         }
+    }
+}
+
+@media screen and (min-width:$lg) {
+
+    .cardContainer {
+        height:375px;
+        width:250px;
     }
 }

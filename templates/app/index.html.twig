@@ -5,7 +5,7 @@
 {% block body %}
 
 
-<form class="quick-search" action="{{ path("app_searchOwn") }}" method="get">
+<form class="quick-search" action="{{ path("app_searchOther") }}" method="get">
     <input class="quick-search-input" type="text" placeholder="Recherche rapide" name="searchKey">
     <input class="search-button" type="submit" value="Go !">
 </form>
@@ -18,10 +18,11 @@
         <div class="underline"></div>
     </div>
 
-    {% for i in 0..3 %}
-    <article class="card-container">
-        <img src="{{ asset('build/img/cardExample.png') }}" />
-    </article>
+    {% for t in table %}
+        <div class="index-card-container">
+            {{ include('_card.html.twig', {item: t}, with_context = false) }}
+            <div class="creator-name">Créé par {{ t.creator.username }}</div>
+        </div>
     {% endfor %}
 </div>
 
@@ -31,10 +32,11 @@
         <div class="underline"></div>
     </div>
 
-    {% for i in 0..3 %}
-    <article class="card-container">
-        <img src="{{ asset('build/img/cardExample.png') }}" />
-    </article>
+    {% for h in hook %}
+        <div class="index-card-container">
+            {{ include('_card.html.twig', {item: h}, with_context = false) }}
+            <div class="creator-name">Créé par {{ h.creator.username }}</div>
+        </div>
     {% endfor %}
 </div>
 
