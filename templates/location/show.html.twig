@@ -24,7 +24,7 @@
         <h3 class="element-title">PNJS : </h3>
         <div class="element-list-container">
             {% for npcLink in location.getnpcs() %}
-                <a class="element-name" href="{{ path('location_show', {'id': npcLink.id}) }}">-{{ npcLink.name }}</a>
+                <a class="element-name" href="{{ path('npc_show', {'id': npcLink.id}) }}">-{{ npcLink.name }}</a>
             {% endfor %}
         <select class="formText" id="npcAdd" name="npcAdd">
                 <option disabled selected value> -- Ajouter un PNJ -- </option>
