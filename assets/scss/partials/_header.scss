@@ -10,7 +10,7 @@ height:30rem;
         h1 {
             font-family:"Fantasya";
             text-align:center;
-            font-size:60px;
+            font-size:3rem;
             text-shadow: $white 0px 0 25px;
             margin-top:5rem;
             margin-bottom:1rem;
@@ -28,7 +28,7 @@ height:30rem;
     nav {
 
         .main-header-list {
-            display:flex;
+            display:none;
             justify-content:space-around;
             padding: 2rem 0rem;
 
@@ -54,14 +54,65 @@ height:30rem;
         }
     }
 
+    .main-header-list-burger {
+        z-index:150;
+        position:fixed;
+        display:none;
+        justify-content:space-around;
+        padding: 2rem 0rem;
+
+        .main-header-sublist {
+            align-items:center;
+        }
+        li {
+            text-align:center;
+            margin: 3rem 0rem 3rem 0rem;
+            font-family:"MoonFirefly";
+
+            a {
+                color: $cyan;
+                &:hover {
+                    color: $white;
+                    text-shadow: $white 0px 0 10px;
+                }
+            } 
+        }
+    }
     .svg-top {
         filter: invert(15%) sepia(68%) saturate(374%) hue-rotate(103deg) brightness(94%) contrast(91%);
         width:100%;
         position:absolute;
         bottom:0;
         z-index:-5;
-        min-height:25rem;
+        // min-height:25rem;
     }
+}
+
+.burgerMenu {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    display: none;
+    z-index: 151;
+  
+    @media screen and (max-width: $sm) {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    div {
+      background: #f1f1f1;
+      height: 5px;
+      width: 35px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+  }
+
+.burger-show {
+    display:flex !important;
+    background-color:$dark;
+    width:100%;
 }
 
 @media screen and (min-width:$lg) {
@@ -69,11 +120,42 @@ height:30rem;
         height:35rem;
 
         h1 {
-            font-size:60px;
+            font-size:4rem;
         }
         
         h2 {
             font-size:20px;
         }
+    }
 }
+
+@media screen and (max-width:$sm) {
+    h1 {
+        font-size:2rem !important;
+    }
 }
+
+@media screen and (min-width:$sm) {
+    .main-header-list {
+        display:flex !important;
+    }
+}
+
+@keyframes navAnimeIn {
+    0% {
+      right: -150%;
+    }
+  
+    100% {
+      right: 0;
+    }
+  }
+  @keyframes navAnimeOut {
+    0% {
+      right: 0;
+    }
+  
+    100% {
+      right: -150%;
+    }
+  }

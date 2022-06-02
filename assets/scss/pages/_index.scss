@@ -74,3 +74,27 @@
         }
     }
 }
+
+@media screen and (max-width:$sm) {
+    #index-new-list {
+        flex-direction:column;
+
+        .index-new-sublist{
+            gap:0.75rem;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+
+            .index-card-container {
+                width:auto;
+            }
+        }
+    }
+
+
+
+    .quick-search-input {
+        line-height:1rem !important;
+        font-size:1rem !important;
+    }
+}

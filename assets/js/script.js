@@ -1,6 +1,9 @@
 const rollButton = document.querySelector('#show-roll-button');
 const resultContainer = document.querySelector('#roll-result-container');
 const changingTitle = document.querySelectorAll('.changing-title');
+const burgerMenu = document.querySelector('#burgerMenu');
+const closeBtn = document.querySelector('#closeBtn');
+const burgerNav = document.querySelector('#burgerNav');
 var random;
 const titleArray = [
     'Quand vos joueurs fouillent le 378ème gobelin',
@@ -26,6 +29,13 @@ window.onload = function() {
     changingTitle.forEach(function(element) {
         element.innerHTML = titleArray[random];
     })
+
+    if(burgerMenu != null)
+    {
+        burgerMenu.addEventListener("click", () => {
+            burgerNav.classList.toggle("burger-show");
+          })
+    }
 }
 
 function tableRoll()

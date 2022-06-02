@@ -23,7 +23,7 @@
     .footer-title {
         font-family:"Fantasya";
         text-align:center;
-        font-size:60px;
+        font-size:3rem;
         text-shadow: $white 0px 0 25px;
         z-index:-5;
         margin-bottom:1rem;
@@ -42,7 +42,7 @@
 #main-footer {
 
     .footer-title {
-        font-size:60px;
+        font-size:4rem;
     }
     
     h2 {
@@ -50,4 +50,10 @@
     }
 }
 
+}
+
+@media screen and (max-width:$sm) {
+    .footer-title {
+        font-size:2rem !important;
+    }
 }

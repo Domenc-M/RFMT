@@ -37,7 +37,6 @@ class TableController extends AbstractController
                 $entry = $request->request->get("tableEntry".$i);
                 array_push($tableEntries, $entry);
             }
-            dump($tableEntries);
             if(in_array("", $tableEntries))
             {
                 $route = $request->headers->get('referer');

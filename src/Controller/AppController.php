@@ -127,20 +127,14 @@ class AppController extends AbstractController
     {
 
         if($request->query->get('filter') == "summary")
-        {
             $filter = "summary";
-        }
         else
-        {
             $filter = "name";
-        }
 
         $searchKey = $request->query->get('searchKey');
 
         if(!$searchKey)
-        {
             $searchKey = "%";
-        }
 
         //REQUEST HANDLING
 

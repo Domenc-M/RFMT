@@ -1,18 +1,31 @@
 .cardContainer {
     transition:all 0.2s;
-    height:375px;
-    width:250px;
+    height:325px;
+    width:216.67px;
 
     &:hover {
         box-shadow: $white 0px 0 10px;
+    }
+
+    .card-name{
+        position:absolute;
+        top:65%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        font-size:0.8rem;
+        font-family:"MoonFirefly";
+        width:200px;
+        text-align:center;
     }
 
     p{
         position:absolute;
         top:71%;
         left:5%;
-        width:220px;
+        width:200px;
+        height:78px;
         font-size:1rem;
+        overflow:hidden;
     }
 }
 
@@ -20,12 +33,23 @@
     height:600px;
     width:400px;
 
+    .card-name{
+        position:absolute;
+        top:65%;
+        left:50%;
+        transform:translate(-50%, -50%);
+        font-size:1.3rem;
+        font-family:"MoonFirefly";
+        width:400px;
+        text-align:center;
+    }
+
     p{
         position:absolute;
         top:70%;
         left:5%;
-        width:360px;
-        font-size:1.2rem;
+        width:375px;
+        font-size:1.5rem;
     }
 }
 
@@ -53,6 +77,8 @@
     .card-front{
         position:absolute;
         z-index:10;
+        height:100%;
+        width:100%;
 
         .card-type{
             position:absolute;
@@ -70,17 +96,6 @@
             width:100%;
             object-fit:cover;
         }
-
-        .card-name{
-            position:absolute;
-            top:65%;
-            left:50%;
-            transform:translate(-50%, -50%);
-            font-size:15px;
-            font-family:"MoonFirefly";
-            width:220px;
-            text-align:center;
-        }
     }
 }
 
@@ -89,5 +104,27 @@
     .cardContainer {
         height:375px;
         width:250px;
+    }
+
+    .card-name{
+        font-size:1rem !important;
+        width:220px;
+    }
+}
+
+@media screen and (max-width:$sm) {
+    .cardContainerShow {
+        height:450px;
+        width:300px;
+
+        p{
+            width:270px;
+            font-size:1rem;
+        }
+    }
+
+    .card-name{
+        font-size:0.8rem !important;
+        width:220px;
     }
 }
